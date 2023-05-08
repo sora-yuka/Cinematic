@@ -21,7 +21,7 @@ from config import settings
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 
-schema_view = get_schema_view(open.Info(
+schema_view = get_schema_view(openapi.Info(
     title = 'Cinematic',
     default_version = '1.0',
     description = 'This is cinematic swagger'
