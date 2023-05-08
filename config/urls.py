@@ -24,7 +24,10 @@ from drf_yasg.views import get_schema_view
 schema_view = get_schema_view(openapi.Info(
     title = 'Cinematic',
     default_version = '1.0',
-    description = 'This is cinematic swagger'
+    description = 'API DOCS for cinematic',
+    terms_of_service='https://policies.google.com/terms',
+    license=openapi.License(name='The project is not proprietary and is intended for educational purposes.'),
+    contact=openapi.Contact(email='feelingjeez@gmail.com')
 ),
     public = True
 )
