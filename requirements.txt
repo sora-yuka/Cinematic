@@ -6,3 +6,4 @@ python-decouple
 dj-config-url
 celery[redis]
 pillow
+drf-yasg
