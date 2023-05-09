@@ -12,3 +12,15 @@ def send_act_code(email, code):
         [email]    
     )
     
+    
+@app.task    
+def send_password_confirm_code(email):
+    full_link = 'http://localhost:8000/api/v1/account/forgot_password_finish/'
+    send_mail(
+        'Password recovery',
+        f'Tap this link-> {full_link}',
+        'dcabatar@gmail.com',
+        [email],
+    )
+
+    

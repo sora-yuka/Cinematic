@@ -6,7 +6,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 
-from applications.accounts.serializers import UserSerializer, ChangePasswordSerializer
+from applications.accounts.serializers import ForgotPasswordFinishSerializer, ForgotPasswordSerializer, UserSerializer, ChangePasswordSerializer
 
 User = get_user_model()
 
@@ -38,3 +38,20 @@ class ChangePasswordApiView(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.set_new_password()
         return Response('Password changed successfully!')
+    
+    
+
+class ForgotRasswordApiView(APIView):
+    def post(self,request):
+        serializer = ForgotPasswordSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.send_code()
+        return Response('We have sent you an email')
+    
+
+class ForgotPasswordFinishApiview(APIView):
+    def post(self, request):
+        serializer = ForgotPasswordFinishSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.set_new_password()
+        return Response('Your password is updated successfully')

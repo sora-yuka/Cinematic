@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 
-from applications.accounts.tasks import send_act_code
+from applications.accounts.tasks import send_act_code, send_password_confirm_code
 
 User = get_user_model()
 
@@ -54,3 +54,49 @@ class ChangePasswordSerializer(serializers.Serializer):
         user.set_password(password)
         user.save()
     
+    
+    
+class ForgotPasswordSerializer(serializers.Serializer):
+    email = serializers.CharField(required=True, max_length=100)
+    
+    def validate_email(self, email):
+        if not User.objects.filter(email=email).exists():
+            raise serializers.ValidationError('There is no user with this email!')
+        return email
+    
+    def send_code(self):
+        email = self.validated_data.get('email')
+        user = User.objects.get(email=email)
+        user.save()
+        send_password_confirm_code.delay(user.email)
+        
+        
+
+class ForgotPasswordFinishSerializer(serializers.Serializer):
+    email = serializers.EmailField(required=True)
+    password = serializers.CharField(required=True, min_length = 6)
+    password2 = serializers.CharField(required=True, min_length = 6)
+    
+    def validate_email(self, email):
+        if not User.objects.filter(email=email).exists():
+            raise serializers.ValidationError('There is no user with this email')
+        return email
+    
+    def validate(self, attrs):
+        p1 = attrs.get('password')
+        p2 = attrs.get('password2')
+        if p1 != p2:
+            raise serializers.ValidationError('Passwords are not similar')
+        return attrs
+                             
+    def set_new_password(self):
+        email = self.validated_data.get('email')
+        password = self.validated_data.get('password')
+        user = User.objects.get(email=email)
+        user.set_password(password)
+        user.save()   
+        
+        
+        
+        
+        
