@@ -69,7 +69,7 @@ STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 # Media content file (Video, Images)
-MEDIA_ROOT = config('MEDIA_ROOT')
+MEDIA_ROOT = BASE_DIR /'media/'
 MEDIA_URL = '/media-content/'
 
 TEMPLATES = [
