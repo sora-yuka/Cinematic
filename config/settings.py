@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     
     # packages
     'applications.accounts',
+    'applications.profiles',
 ]
 
 MIDDLEWARE = [
