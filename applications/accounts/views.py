@@ -4,7 +4,9 @@ from rest_framework.generics import CreateAPIView
 from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.response import Response
-from applications.accounts.serializers import UserSerializer
+from rest_framework.permissions import IsAuthenticated
+
+from applications.accounts.serializers import UserSerializer, ChangePasswordSerializer
 
 User = get_user_model()
 
@@ -27,3 +29,12 @@ class UserActivationApiView(APIView):
             return Response({'msg': 'success'}, status=status.HTTP_200_OK)
         except User.DoesNotExist:
             return Response({'msg': 'wrong code'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        
+class ChangePasswordApiView(APIView):
+    permission_classes = [IsAuthenticated]
+    def post(self, request):
+        serializer = ChangePasswordSerializer(data=request.data, context={'request':request})
+        serializer.is_valid(raise_exception=True)
+        serializer.set_new_password()
+        return Response('Password changed successfully!')
