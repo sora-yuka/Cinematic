@@ -25,14 +25,13 @@ schema_view = get_schema_view(openapi.Info(
     title = 'Cinematic',
     default_version = '1.0',
     description = 'This is cinematic swagger'
-),
-    public = True
-)
+),  public = True)
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('swagger/', schema_view.with_ui('swagger')),
+    path('api/v1/account/', include('applications.accounts.urls')),
     
 ]
 
