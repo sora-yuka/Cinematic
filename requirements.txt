@@ -7,3 +7,4 @@ dj-config-url
 celery[redis]
 pillow
 drf-yasg
+django-filter
