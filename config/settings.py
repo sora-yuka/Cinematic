@@ -136,6 +136,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Celery settings
 BROKER_URL = config('BROKER_URL')
 BROKER_TRANPORT = config('BROKER_TRANSPORT')
+BROKER_BACKEND = 'redis://localhost:6379'
 
 
 # Email connecting
