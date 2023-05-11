@@ -8,3 +8,4 @@ celery[redis]
 pillow
 drf-yasg
 django-filter
+django-cors-headers

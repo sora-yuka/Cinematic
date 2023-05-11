@@ -23,5 +23,3 @@ def send_password_confirm_code(email):
         config('EMAIL_HOST_USER'),
         [email],
     )
-
-    
