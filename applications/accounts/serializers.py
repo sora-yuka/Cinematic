@@ -29,7 +29,6 @@ class UserSerializer(serializers.ModelSerializer):
         return user
     
     
-    
 class ChangePasswordSerializer(serializers.Serializer):
     old_password = serializers.CharField(required=True)
     new_password = serializers.CharField(required=True, min_length=6)
@@ -55,7 +54,6 @@ class ChangePasswordSerializer(serializers.Serializer):
         user.save()
     
     
-    
 class ForgotPasswordSerializer(serializers.Serializer):
     email = serializers.CharField(required=True, max_length=100)
     
@@ -69,8 +67,7 @@ class ForgotPasswordSerializer(serializers.Serializer):
         user = User.objects.get(email=email)
         user.save()
         send_password_confirm_code.delay(user.email)
-        
-        
+              
 
 class ForgotPasswordFinishSerializer(serializers.Serializer):
     email = serializers.EmailField(required=True)
