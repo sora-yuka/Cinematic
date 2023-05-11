@@ -36,7 +36,7 @@ class Rating(models.Model):
     rating = models.SmallIntegerField(
         validators=[
         MinValueValidator(1),
-        MaxValueValidator(5)
+        MaxValueValidator(10)
         ],
         blank=True, null=True
     )
