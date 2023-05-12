@@ -1,5 +1,12 @@
 from django.db import models
 
+STATUS = (
+    ("Продолжается", "Продолжается"),
+    ("Завершен", "Завершен"),
+    ("Заброшен", "Заброшен"),
+    ("Анонсировано", "Анонсировано"),
+)
+
 
 class Genre(models.Model):
     name = models.CharField("Жанр", max_length=100)
@@ -14,7 +21,27 @@ class Genre(models.Model):
     
 class Episodes(models.Model):
     title = models.CharField(max_length=100)
-    episodes = models.FileField(upload_to="series-episodes")
+    description = models.CharField(max_length=180)
+    episode = models.FileField(upload_to="series-episode")
+    
+    def __str__(self) -> str:
+        return self.title
+    
+    class Meta:
+        verbose_name = "Серия"
+        verbose_name_plural = "Серии"
+        
+        
+class Trailer(models.Model):
+    title = models.CharField(max_length=100)
+    trailer = models.FileField(upload_to="series-trailer/")
+    
+
+class Season(models.Model):
+    title = models.CharField(max_length=100)
+    description = models.TextField()
+    release_year = models.PositiveIntegerField()
+    episodes = models.ManyToManyField(Episodes, verbose_name="серии")
     
     def __str__(self) -> str:
         return self.title
@@ -22,13 +49,14 @@ class Episodes(models.Model):
     
 class Series(models.Model):
     title = models.CharField(max_length=100)
+    release_year = models.PositiveIntegerField()
     genres = models.ManyToManyField(Genre, verbose_name="жанры")
-    # status = models.Choices()
+    status = models.CharField(max_length=100, choices=STATUS)
     preview = models.ImageField(upload_to="series-preview/")
-    series = models.ManyToManyField(Episodes, verbose_name="серии")
+    season = models.ManyToManyField(Season, verbose_name="сезоны")
     director = models.CharField(max_length=100)
     description = models.TextField(null=True, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+    upload_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
     def __str__(self) -> str:

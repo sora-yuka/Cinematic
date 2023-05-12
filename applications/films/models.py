@@ -14,9 +14,8 @@ class Genre(models.Model):
 
 class Films(models.Model):    
     title = models.CharField(max_length=100)
-    # genre = models.CharField(max_length=100, choices=GENRE)
     genres = models.ManyToManyField(Genre, verbose_name="жанры")
-    avatar = models.ImageField(upload_to='films_avatar/', null=True, blank=True)
+    avatar = models.ImageField(upload_to='films_avatar/')
     film = models.FileField(upload_to='films_film/')
     trailer = models.FileField(upload_to='film_trailer')
     director = models.CharField(max_length=100)
