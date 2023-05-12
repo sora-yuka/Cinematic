@@ -23,7 +23,7 @@ class Episodes(models.Model):
 class Series(models.Model):
     title = models.CharField(max_length=100)
     genres = models.ManyToManyField(Genre, verbose_name="жанры")
-    status = models.Choices()
+    # status = models.Choices()
     preview = models.ImageField(upload_to="series-preview/")
     series = models.ManyToManyField(Episodes, verbose_name="серии")
     director = models.CharField(max_length=100)
