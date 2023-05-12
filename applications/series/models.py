@@ -14,6 +14,7 @@ class Genre(models.Model):
     def __str__(self) -> str:
         return self.name
     
+    
     class Meta:
         verbose_name = "Жанр"
         verbose_name_plural = "Жанры"
@@ -27,6 +28,7 @@ class Episodes(models.Model):
     def __str__(self) -> str:
         return self.title
     
+    
     class Meta:
         verbose_name = "Серия"
         verbose_name_plural = "Серии"
@@ -36,6 +38,14 @@ class Trailer(models.Model):
     title = models.CharField(max_length=100)
     trailer = models.FileField(upload_to="series-trailer/")
     
+    def __str__(self) -> str:
+        return self.title
+    
+
+    class Meta:
+        verbose_name = "Трейлер"
+        verbose_name_plural = "Трейлеры"
+        
 
 class Season(models.Model):
     title = models.CharField(max_length=100)
@@ -45,6 +55,11 @@ class Season(models.Model):
     
     def __str__(self) -> str:
         return self.title
+    
+    
+    class Meta:
+        verbose_name = "Сезон"
+        verbose_name_plural = "Сезоны"
     
     
 class Series(models.Model):
@@ -61,6 +76,7 @@ class Series(models.Model):
     
     def __str__(self) -> str:
         return self.title
+    
     
     class Meta:
         verbose_name = "Сериал"
