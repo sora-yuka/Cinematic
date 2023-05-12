@@ -8,8 +8,8 @@ class Genre(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = "Жанp"
-        verbose_name_plural = "Жанры"
+        verbose_name = "Genre"
+        verbose_name_plural = "Genres"
 
 
 class Films(models.Model):    
@@ -27,5 +27,5 @@ class Films(models.Model):
         return self.title
     
     class Meta:
-        verbose_name = "Филм"
-        verbose_name_plural = "Филмы"
+        verbose_name = "Film"
+        verbose_name_plural = "Films"

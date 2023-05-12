@@ -131,7 +131,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Bishkek'
 
 USE_I18N = True
 
@@ -201,3 +201,38 @@ SWAGGER_SETTINGS = {
 }
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
+
+
+
+LOGGING = {
+    'version' : 1,
+    'disable_existing_loggers': False,
+    
+    
+    'formatters': {
+        'main': {
+            'format': '{asctime} -- {levelname} -- {module} -- {filename} -- {message}',
+            'style': '{'
+        }
+    },
+    
+    'handlers': {
+        'my_console': {
+            'class': 'logging.StreamHandler',
+            'formatter':'main',
+        },
+        
+        'file': {
+            'class': 'logging.FileHandler',
+            'filename': 'info.log',
+            'formatter': 'main'
+        }
+    },
+    
+    'loggers': {
+        'main': {
+            'handlers': ['my_console', 'file'],
+            'level': 'INFO',
+        }
+    }   
+}

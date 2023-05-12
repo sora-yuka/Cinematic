@@ -1,10 +1,11 @@
-from django.shortcuts import render
+import logging
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 from rest_framework import mixins
 from applications.feedback.models import Favorite, Like, Rating, Comment
 from applications.feedback.serializers import FavoriteSerializer, LikeSerializer, RatingSerializer, CommentSerializer
 from rest_framework.permissions import IsAuthenticated
 
+logger = logging.getLogger('main')
 
 class LikeModelViewSet(ModelViewSet):
     queryset = Like.objects.all()
