@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Films(models.Model):
-    
+
     GENRE = (
         ('adventure', 'adventure'),
         ('horror', 'horror'),
@@ -23,5 +23,3 @@ class Films(models.Model):
     
     def __str__(self) -> str:
         return self.title
-    
-    
