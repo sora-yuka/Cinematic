@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'applications.profiles',
     'applications.films',
     'applications.feedback',
+    'applications.series',
 ]
 
 MIDDLEWARE = [
