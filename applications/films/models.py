@@ -16,6 +16,7 @@ class Films(models.Model):
     genre = models.CharField(max_length=100, choices=GENRE)
     avatar = models.ImageField(upload_to='films_avatar/', null=True, blank=True)
     film = models.FileField(upload_to='films_film/')
+    trailer = models.FileField(upload_to='film_trailer')
     director = models.CharField(max_length=100)
     description = models.TextField(null=True, blank=True)
     upload_at = models.DateTimeField(auto_now_add=True)
