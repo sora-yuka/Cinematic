@@ -23,3 +23,9 @@ class TrailerModelViewSet(ModelViewSet):
     queryset = Trailer.objects.all()
     serializer_class = TrailerSerializer
     permission_classes = [IsAdmin]
+    
+
+class GenreModelViewSet(ModelViewSet):
+    queryset = Genre.objects.all()
+    serializer_class = GenreSerializer
+    permission_classes = [IsAdmin]
