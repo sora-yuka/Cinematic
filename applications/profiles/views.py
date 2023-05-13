@@ -8,4 +8,3 @@ class ProfileViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, mixins.Up
     serializer_class = ProfileSerializer
     permission_classes = [IsProfileOwner]
     queryset = Profile.objects.all()
-    
