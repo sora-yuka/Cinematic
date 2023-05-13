@@ -1,5 +1,6 @@
 from django.db import models
 from applications.films.models import Films
+from applications.series.models import Series
 from django.contrib.auth import get_user_model
 from django.core.validators import MaxValueValidator, MinValueValidator
 
@@ -14,8 +15,13 @@ class Like(models.Model):
 
     films = models.ForeignKey(
         Films,
-        on_delete=models.CASCADE, related_name='likes'
+        on_delete=models.CASCADE, related_name='film_likes'
     )
+    
+    # show = models.ForeignKey(
+    #     Series, 
+    #     on_delete=models.CASCADE, related_name='series_likes'
+    # )
 
     is_like = models.BooleanField(default=False)
 
@@ -31,8 +37,12 @@ class Rating(models.Model):
     ) 
     films = models.ForeignKey(
         Films, 
-        on_delete=models.CASCADE, related_name='ratings'
+        on_delete=models.CASCADE, related_name='film_ratings'
     )
+    # show = models.ForeignKey(
+    #     Series, 
+    #     on_delete=models.CASCADE, related_name='series_likes'
+    # )
     rating = models.SmallIntegerField(
         validators=[
         MinValueValidator(1),
@@ -51,8 +61,12 @@ class Favorite(models.Model):
     )
     films = models.ForeignKey(
         Films, 
-        on_delete=models.CASCADE, related_name='favorites'
+        on_delete=models.CASCADE, related_name='film_favorites'
     )
+    # show = models.ForeignKey(
+    #     Series, 
+    #     on_delete=models.CASCADE, related_name='series_likes'
+    # )
 
     def __str__(self):
         return f'{self.owner} - {self.films.title}'
@@ -65,10 +79,13 @@ class Comment(models.Model):
     )
     films = models.ForeignKey(
         Films,
-        on_delete=models.CASCADE, related_name='comments'
+        on_delete=models.CASCADE, related_name='film_comments'
     )
+    # show = models.ForeignKey(
+    #     Series, 
+    #     on_delete=models.CASCADE, related_name='series_comments'
+    # )
     comment = models.TextField()
    
     def __str__(self):
         return f'{self.owner} - {self.films.title}'
-
