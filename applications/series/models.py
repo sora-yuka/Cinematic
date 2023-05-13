@@ -23,7 +23,7 @@ class Genre(models.Model):
 class Episodes(models.Model):
     title = models.CharField(max_length=100)
     description = models.CharField(max_length=180)
-    episode = models.FileField(upload_to="series-episode")
+    episode = models.FileField(upload_to="series/series-episode/")
     
     def __str__(self) -> str:
         return self.title
@@ -36,7 +36,7 @@ class Episodes(models.Model):
         
 class Trailer(models.Model):
     title = models.CharField(max_length=100)
-    trailer = models.FileField(upload_to="series-trailer/")
+    trailer = models.FileField(upload_to="series/series-trailer/")
     
     def __str__(self) -> str:
         return self.title
@@ -67,12 +67,12 @@ class Series(models.Model):
     release_year = models.PositiveIntegerField()
     genres = models.ManyToManyField(Genre, verbose_name="жанры")
     status = models.CharField(max_length=100, choices=STATUS)
-    preview = models.ImageField(upload_to="series-preview/")
-    season = models.ManyToManyField(Season, verbose_name="сезоны")
+    preview = models.ImageField(upload_to="series/series-preview/")
+    season = models.ManyToManyField(Season, verbose_name="сезоны", blank=True)
+    trailer = models.ManyToManyField(Trailer, verbose_name="трейлеры", blank=True)
     director = models.CharField(max_length=100)
-    description = models.TextField(null=True, blank=True)
+    description = models.TextField()
     upload_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
     
     def __str__(self) -> str:
         return self.title

@@ -24,5 +24,3 @@ class ProfileViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, mixins.Up
     def update(self, request, *args, **kwargs):
         logger.info('User updating profile!')
         return super().update(request, *args, **kwargs)
-    
-    
