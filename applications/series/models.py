@@ -28,7 +28,6 @@ class Episodes(models.Model):
     def __str__(self) -> str:
         return self.title
     
-    
     class Meta:
         verbose_name = "Серия"
         verbose_name_plural = "Серии"

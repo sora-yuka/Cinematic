@@ -18,14 +18,15 @@ class LikeViewSet(viewsets.GenericViewSet):
     @action(methods=['POST'], detail=True)
     def like(self, request, pk, *args, **kwargs):
         user = request.user
-        like_obj, _ = Like.objects.get_or_create(owner=user, post_id=pk)
-        like_obj.is_like = not like_obj.is_like
-        like_obj.save()
-        status = 'liked'
-
-        if not like_obj.is_like:
+        try:
+            like_obj = Like.objects.get(owner=user, post_id=pk)
             status = 'unliked'
-
+            like_obj.delete()
+        except Like.DoesNotExist:
+            like_obj = Like(owner=user, post_id=pk, is_like=True)
+            like_obj.save()
+            status = 'liked'
+        
         return Response({'status': status})
     
     def perform_create(self, serializer):
