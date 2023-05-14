@@ -6,7 +6,7 @@ User = get_user_model()
 class Profile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='profiles')
     username = models.CharField(max_length=150, default='')
-    image = models.ImageField(upload_to='images/', null=True, blank=True)
+    image = models.ImageField(upload_to='profile/images/', null=True, blank=True)
     bio = models.CharField(max_length=400, null=True, blank=True)
     
     def generate_default_username(self):

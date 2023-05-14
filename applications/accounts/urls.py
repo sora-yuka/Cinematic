@@ -14,4 +14,3 @@ urlpatterns = [
     path('forgot_password/', ForgotRasswordApiView.as_view()),
     path('forgot_password_finish/', ForgotPasswordFinishApiview.as_view()),
 ]
-

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+import logging
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 from rest_framework import generics
 from rest_framework import mixins, viewsets
@@ -8,6 +8,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.decorators import action
 
+logger = logging.getLogger('main')
 
 class LikeViewSet(viewsets.GenericViewSet):
     queryset = Like.objects.all()

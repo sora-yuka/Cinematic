@@ -25,6 +25,7 @@ urlpatterns = [
     path('api/v1/profile/', include('applications.profiles.urls')),
     path('api/v1/films/', include('applications.films.urls')),
     path('api/v1/feedback/', include('applications.feedback.urls')),
+    path('api/v1/series/', include('applications.series.urls')),
 ]
 
 

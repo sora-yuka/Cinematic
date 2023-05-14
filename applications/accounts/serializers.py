@@ -67,7 +67,7 @@ class ForgotPasswordSerializer(serializers.Serializer):
         user = User.objects.get(email=email)
         user.save()
         send_password_confirm_code.delay(user.email)
-              
+        
 
 class ForgotPasswordFinishSerializer(serializers.Serializer):
     email = serializers.EmailField(required=True)
@@ -91,9 +91,4 @@ class ForgotPasswordFinishSerializer(serializers.Serializer):
         password = self.validated_data.get('password')
         user = User.objects.get(email=email)
         user.set_password(password)
-        user.save()   
-        
-        
-        
-        
-        
+        user.save()

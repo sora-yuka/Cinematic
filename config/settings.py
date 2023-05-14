@@ -17,8 +17,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=True)
 
-# ALLOWED_HOSTS = config('ALLOWED_HOSTS').split(',')
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = config('ALLOWED_HOSTS').split(',')
 
 
 # Application definition
@@ -36,17 +35,20 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'drf_yasg',
     'django_filters',
+    'corsheaders',
     
     # packages
     'applications.accounts',
     'applications.profiles',
     'applications.films',
     'applications.feedback',
+    'applications.series',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -83,6 +85,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
+# CORS connection setup
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
@@ -123,7 +130,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Bishkek'
 
 USE_I18N = True
 
@@ -137,6 +144,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Celery settings
 BROKER_URL = config('BROKER_URL')
 BROKER_TRANPORT = config('BROKER_TRANSPORT')
+BROKER_BACKEND = 'redis://localhost:6379'
 
 
 # Email connecting
@@ -192,3 +200,38 @@ SWAGGER_SETTINGS = {
 }
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
+
+
+
+LOGGING = {
+    'version' : 1,
+    'disable_existing_loggers': False,
+    
+    
+    'formatters': {
+        'main': {
+            'format': '{asctime} -- {levelname} -- {module} -- {filename} -- {message}',
+            'style': '{'
+        }
+    },
+    
+    'handlers': {
+        'my_console': {
+            'class': 'logging.StreamHandler',
+            'formatter':'main',
+        },
+        
+        'file': {
+            'class': 'logging.FileHandler',
+            'filename': 'info.log',
+            'formatter': 'main'
+        }
+    },
+    
+    'loggers': {
+        'main': {
+            'handlers': ['my_console', 'file'],
+            'level': 'INFO',
+        }
+    }   
+}
