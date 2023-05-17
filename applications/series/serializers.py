@@ -18,11 +18,11 @@ class SeriesSerializer(serializers.ModelSerializer):
         fields = "__all__"
         
     
-    # def to_representation(self, instance):
-    #     representation = super().to_representation(instance)
-    #     representation["like"] = Like.objects.filter(series=instance, is_like=True).count()
-    #     representation["ratings"] = Rating.objects.filter(series=insstance).aggregate(Avg("rating"))["rating__avg"]
-    #     return representation
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        representation["like"] = Like.objects.filter(series=instance, is_like=True).count()
+        representation["ratings"] = Rating.objects.filter(series=instance).aggregate(Avg("rating"))["rating__avg"]
+        return representation
         
 
 class SeasonSerializer(serializers.ModelSerializer):

@@ -5,6 +5,8 @@ from applications.feedback.models import Like, Rating
 
 
 class FilmsSerializer(serializers.ModelSerializer):
+    owner = serializers.ReadOnlyField(source='owner.email')
+    
     class Meta:
         model = Films
         fields = '__all__'
@@ -13,10 +15,7 @@ class FilmsSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         representation = super().to_representation(instance)
         representation['likes'] = Like.objects.filter(films=instance, is_like=True).count()
-        rating = Rating.objects.filter(films=instance).aggregate(Avg('rating'))['rating__avg']
-        if rating:
-            representation['rating'] = rating
-        representation['rating'] = 0
+        representation['rating'] = Rating.objects.filter(films=instance).aggregate(Avg('rating'))['rating__avg']
         return representation
         
 
