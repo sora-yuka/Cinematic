@@ -59,7 +59,7 @@ class SeriesModelViewSet(ModelViewSet):
             message = 'Deleted from favorite'
         return Response({"message": message})
     
-
+    
 class SeasonModelViewSet(ModelViewSet):
     queryset = Season.objects.all()
     serializer_class = SeasonSerializer

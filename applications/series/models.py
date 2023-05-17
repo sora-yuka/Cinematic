@@ -47,10 +47,11 @@ class Trailer(models.Model):
         
 
 class Season(models.Model):
+    series = models.ForeignKey("Series", on_delete=models.CASCADE, related_name="season_series")
     title = models.CharField(max_length=100)
     description = models.TextField()
-    release_year = models.PositiveIntegerField()
-    episodes = models.ManyToManyField(Episodes, verbose_name="серии")
+    release = models.IntegerField(default='2017')
+    episodes = models.ManyToManyField(Episodes, related_name="season_episodes", blank=True)
     
     def __str__(self) -> str:
         return self.title
@@ -64,11 +65,11 @@ class Season(models.Model):
 class Series(models.Model):
     title = models.CharField(max_length=100)
     release_year = models.PositiveIntegerField()
-    genres = models.ManyToManyField(Genre, verbose_name="жанры")
+    genres = models.ManyToManyField(Genre, related_name="series_genres")
     status = models.CharField(max_length=100, choices=STATUS)
     preview = models.ImageField(upload_to="series/series-preview/")
-    season = models.ManyToManyField(Season, verbose_name="сезоны", blank=True)
-    trailer = models.ManyToManyField(Trailer, verbose_name="трейлеры", blank=True)
+    season = models.ManyToManyField(Season, related_name="seasons", blank=True)
+    trailer = models.ManyToManyField(Trailer, related_name="trailers", blank=True)
     director = models.CharField(max_length=100)
     description = models.TextField()
     upload_at = models.DateTimeField(auto_now_add=True)
